@@ -1,0 +1,39 @@
+{
+  "name": "hostelmanagement",
+  "version": "1.0.0",
+  "description": "This app provides a platform for students to register for hostel and choose the room",
+  "main": "index.js",
+  "scripts": {
+    "start": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddhantantil39/hostelManagement.git"
+  },
+  "author": "Rajan Mishra Siddhant Antil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siddhantantil39/hostelManagement/issues"
+  },
+  "homepage": "https://github.com/siddhantantil39/hostelManagement#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "prettier": "^2.4.1"
+  }
+}
