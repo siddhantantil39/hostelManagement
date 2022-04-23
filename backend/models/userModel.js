@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type: 'string',
         required: [true, "User Branch is Required"],
     },
-    semester: {
+    year: {
         type:'Number',
         required: [true,"User Semester is Required"]
     },
@@ -50,7 +50,7 @@ const validate = (data) => {
         lastName: joi.string().required().label("Last Name"),
         usn: joi.string().required().label("USN"),
         branch: joi.string().required().label("Branch"),
-        semester:joi.number().required().label("Semester"),
+        year:joi.number().required().label("Year"),
         email : joi.string().email().required().label("Email"),
         password:joipasswordcomplexity().required().label("Password"),
     });
