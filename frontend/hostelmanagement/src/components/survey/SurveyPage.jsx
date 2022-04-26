@@ -1,51 +1,47 @@
-import styles from "./style.module.css";
-import { Component, useState} from "react";
+import axios from "axios";
+import { Component} from "react";
 import * as Survey from "survey-react";
 import "survey-react/modern.css";
 
 Survey.StylesManager.applyTheme("modern");
 
-function doOnCurrentPageChanged(survey) {
-    document
-        .getElementById('pageSelector')
-        .value = survey.currentPageNo;
-    document
-        .getElementById('surveyPrev')
-        .style
-        .display = !survey.isFirstPage
-            ? "inline"
-            : "none";
-    document
-        .getElementById('surveyNext')
-        .style
-        .display = !survey.isLastPage
-            ? "inline"
-            : "none";
-    document
-        .getElementById('surveyComplete')
-        .style
-        .display = survey.isLastPage
-            ? "inline"
-            : "none";
-    document
-        .getElementById('surveyProgress')
-        .innerText = "Page " + (
-    survey.currentPageNo + 1) + " of " + survey.visiblePageCount + ".";
-    if (document.getElementById('surveyPageNo')) 
-        document
-            .getElementById('surveyPageNo')
-            .value = survey.currentPageNo;
-    }
+//Not in use AnyWhere
+// function doOnCurrentPageChanged(survey) {
+//     document
+//         .getElementById('pageSelector')
+//         .value = survey.currentPageNo;
+//     document
+//         .getElementById('surveyPrev')
+//         .style
+//         .display = !survey.isFirstPage
+//             ? "inline"
+//             : "none";
+//     document
+//         .getElementById('surveyNext')
+//         .style
+//         .display = !survey.isLastPage
+//             ? "inline"
+//             : "none";
+//     document
+//         .getElementById('surveyComplete')
+//         .style
+//         .display = survey.isLastPage
+//             ? "inline"
+//             : "none";
+//     document
+//         .getElementById('surveyProgress')
+//         .innerText = "Page " + (
+//     survey.currentPageNo + 1) + " of " + survey.visiblePageCount + ".";
+//     if (document.getElementById('surveyPageNo')) 
+//         document
+//             .getElementById('surveyPageNo')
+//             .value = survey.currentPageNo;
+//     }
 
 
 
 
 class SurveyPage extends Component{
-    constructor(){
-        super();
-    }
-
-    
 
     render(){
 
@@ -217,6 +213,40 @@ class SurveyPage extends Component{
             ]
           };
         const survey = new Survey.Model(json);
+
+        survey.onComplete.add(async function (sender) {
+          console.log(sender);
+          console.log(sender.data);
+          const data = {
+            usn:sender.data.USN,
+          state:sender.data.State,
+          branch: sender.data.Branch,
+          nature: sender.data.Nature,
+          sleepEarly: sender.data.sleep,
+          sportslike: sender.data.sports,
+          study: sender.data.reading,
+          birthdate: sender.data.bdate,
+          name:sender.data.name,
+          singing: sender.data.singing,
+          movies: sender.data.movies,
+          year: sender.data.Year
+          }
+
+          await SubmitData(data);
+
+        });
+
+        const SubmitData = async (data) => {
+          try {
+            const url = "http://localhost:8080/api/survey";
+            const response = await axios.post(url, data);
+            console.log(response.data);
+            window.location = "/recommended";
+          } catch (error) {
+            console.log(error.message);
+            alert(error.message);
+          }
+        };
 
 
         return (
