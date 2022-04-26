@@ -1,41 +1,233 @@
 import styles from "./style.module.css";
-import { useState} from "react";
+import { Component, useState} from "react";
+import * as Survey from "survey-react";
+import "survey-react/modern.css";
 
-const Main = () => {
-    const [data,setdata] = useState({
-        usn:"",
-        state: "",
-        branch: "",
-        nature: "",
-        sleepEarly: "",
-        sportslike: "",
-        study: ""
-    });
-	const handleLogout = () => {
-		localStorage.removeItem("token");
-		window.location.reload();
-	};
+Survey.StylesManager.applyTheme("modern");
 
-	return (
-		<div className={styles.main_container}>
-			<nav className={styles.navbar}>
-				<h1>Hostel Management</h1>
-				<button className={styles.white_btn} onClick={handleLogout}>
-					Logout
-				</button>
-			</nav>
-            <div>
-                <h2>Please Complete A Small Survey</h2>  
-            </div>
-            <div>
-                <h5>What is your Nature?</h5>
-                <label>Intovert</label>
-                <input type = "checkbox" placeholder = "Intovert" name = "intovert" value = "0"></input>
-                <label>Extrovert</label>
-                <input type = "checkbox" placeholder = "Extrovert" name = "extrovert" value = "1" required></input>
-            </div>
-		</div>
-	);
-};
+function doOnCurrentPageChanged(survey) {
+    document
+        .getElementById('pageSelector')
+        .value = survey.currentPageNo;
+    document
+        .getElementById('surveyPrev')
+        .style
+        .display = !survey.isFirstPage
+            ? "inline"
+            : "none";
+    document
+        .getElementById('surveyNext')
+        .style
+        .display = !survey.isLastPage
+            ? "inline"
+            : "none";
+    document
+        .getElementById('surveyComplete')
+        .style
+        .display = survey.isLastPage
+            ? "inline"
+            : "none";
+    document
+        .getElementById('surveyProgress')
+        .innerText = "Page " + (
+    survey.currentPageNo + 1) + " of " + survey.visiblePageCount + ".";
+    if (document.getElementById('surveyPageNo')) 
+        document
+            .getElementById('surveyPageNo')
+            .value = survey.currentPageNo;
+    }
 
-export default Main;
+
+
+
+class SurveyPage extends Component{
+    constructor(){
+        super();
+    }
+
+    
+
+    render(){
+
+
+        const json = {
+            "title": "Basic Student survey",
+            "showProgressBar": "top",
+            "pages":[
+                {
+
+            "elements": [
+              {
+               
+                  
+                      "type" : "text",
+                      "name" : "name",
+                      "title" : "Please Enter your name:",
+                      "placeHolder" : "Mario 64",
+                      "isRequired" : true ,
+                      "autoComplete" : "name"
+                                          },
+                  {
+                      "type" : "text",
+                      "name" : "USN",
+                      "title" : "Please Enter your USN:",
+                      "placeHolder" : "1SI18CS064",
+                      "isRequired" : true ,
+                      "autoComplete" : "USN"
+                  },
+                  {
+                      "type": "dropdown",
+                      "name": "Branch",
+                      "title": "What is your Branch?",
+                      "isRequired": true,
+                      "colCount": 0,
+                      "hasNone": true,
+                      "choices": [
+                              "CSE",
+                              "ISE",
+                              "AI and DS",
+                              "ECE",
+                              "EEE",
+                              "CE",
+                              "CHE",
+                              "ME",
+                              "BE",
+                              "TE",
+                              "EIE",
+                              "IEM"
+          
+                                  ]
+                  },
+                  {
+                      "type": "dropdown",
+                      "name": "State",
+                      "title": "What is your State of Origin?",
+                      "isRequired": true,
+                      "colCount": 0,
+                      "hasNone": true,
+                      "choices": [
+                          "Andhra Pradesh",
+          "Arunachal Pradesh",
+          "Assam",
+          "Bihar",
+          "Chhattisgarh",
+          "Goa",
+          "Gujarat",
+          "Haryana",
+          "Himachal Pradesh",
+          "Jharkhand",
+          "Karnataka",
+          "Kerala",
+          "Madhya Pradesh",
+          "Maharashtra",
+          "Manipur",
+          "Meghalaya",
+          "Mizoram",
+          "Nagaland",
+          "Odisha",
+          "Punjab",
+          "Rajasthan",
+          "Sikkim",
+          "Tamil Nadu",
+          "Telangana",
+          "Tripura",
+          "Uttarakhand",
+          "Uttar Pradesh",
+          "West Bengal",
+          "Andaman and Nicobar Islands",
+          "Chandigarh",
+          "Dadra and Nagar Haveli",
+          "Daman and Diu",
+          "Delhi",
+          "Lakshadweep",
+          "Puducherry",
+          "Jammu and Kashmir",
+          "Ladakh"
+                      ]
+          },
+          {
+              "type": "dropdown",
+                      "name": "Year",
+                      "title": "What is your Year?",
+                      "isRequired": true,
+                      "colCount": 0,
+                      "hasNone": true,
+                      "choices": [
+                              "I",
+                              "II",
+                              "III",
+                              "IV",
+                              "Others"]
+                           
+          },
+          {
+              "name": "bdate",
+              "type": "text",
+              "inputType": "date",
+              "title": "Your Date of Birth :",
+              "isRequired": true,
+              "autoComplete": "bdate"
+          }
+        ]
+    },
+    {
+        "elements": [
+          
+                  {
+                      "type" : "radiogroup",
+                      "name" : "Nature",
+                      "title" : "Do you find yourslef Introverted or Extroverted?",
+                      "choices" : ["Extrovert", "Introvert"]
+                  },
+          
+                  {
+                      "type" : "radiogroup",
+                      "name" : "sports",
+                      "title" : "Do you like Sports?",
+                      "choices" : ["Yes", "No"]
+                  },
+          
+                  {
+                      "type" : "radiogroup",
+                      "name" : "singing",
+                      "title" : "Do you like Singing, Acting or any Othee form of Art?",
+                      "choices" : ["Yes", "No"]
+                  },
+                  {
+                      "type" : "radiogroup",
+                      "name" : "reading",
+                      "title" : "Do you like Reading/Writing?",
+                      "choices" : ["Yes", "No"]
+                  },
+                  {
+                      "type" : "radiogroup",
+                      "name" : "sleep",
+                      "title" : "Do you usually sleep Early?",
+                      "choices" : ["Yes", "No"]
+                  },
+                  {
+                      "type" : "radiogroup",
+                      "name" : "movies",
+                      "title" : "Do you like watching Movies or any form of diigtal content in the room often?",
+                      "choices" : ["Yes", "No"]
+                  }
+            ]
+    }
+                
+            ]
+          };
+        const survey = new Survey.Model(json);
+
+
+        return (
+            <Survey.Survey
+                model={survey}
+            />
+        );
+
+
+    }
+}
+
+export default SurveyPage;
+
