@@ -2,6 +2,7 @@ import axios from "axios";
 import { Component} from "react";
 import * as Survey from "survey-react";
 import "survey-react/modern.css";
+import Navbar from "../navbar/Navbar";
 
 Survey.StylesManager.applyTheme("modern");
 
@@ -41,7 +42,7 @@ Survey.StylesManager.applyTheme("modern");
 
 
 
-class SurveyPage extends Component{
+class SurveysubPage extends Component{
 
     render(){
 
@@ -257,6 +258,21 @@ class SurveyPage extends Component{
 
 
     }
+}
+
+
+
+function SurveyPage() {
+  return (
+    <div>
+        <nav>
+            <Navbar/>
+        </nav>
+        <div>
+        <SurveysubPage/>
+        </div>
+    </div>
+  )
 }
 
 export default SurveyPage;
