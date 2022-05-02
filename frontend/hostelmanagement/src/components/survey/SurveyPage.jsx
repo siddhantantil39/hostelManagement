@@ -265,9 +265,9 @@ class SurveysubPage extends Component{
 function SurveyPage() {
   return (
     <div>
-        <nav>
+        <div>
             <Navbar/>
-        </nav>
+        </div>
         <div>
         <SurveysubPage/>
         </div>
