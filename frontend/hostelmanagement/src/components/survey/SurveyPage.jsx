@@ -5,40 +5,6 @@ import "survey-react/modern.css";
 
 Survey.StylesManager.applyTheme("modern");
 
-//Not in use AnyWhere
-// function doOnCurrentPageChanged(survey) {
-//     document
-//         .getElementById('pageSelector')
-//         .value = survey.currentPageNo;
-//     document
-//         .getElementById('surveyPrev')
-//         .style
-//         .display = !survey.isFirstPage
-//             ? "inline"
-//             : "none";
-//     document
-//         .getElementById('surveyNext')
-//         .style
-//         .display = !survey.isLastPage
-//             ? "inline"
-//             : "none";
-//     document
-//         .getElementById('surveyComplete')
-//         .style
-//         .display = survey.isLastPage
-//             ? "inline"
-//             : "none";
-//     document
-//         .getElementById('surveyProgress')
-//         .innerText = "Page " + (
-//     survey.currentPageNo + 1) + " of " + survey.visiblePageCount + ".";
-//     if (document.getElementById('surveyPageNo')) 
-//         document
-//             .getElementById('surveyPageNo')
-//             .value = survey.currentPageNo;
-//     }
-
-
 
 
 class SurveyPage extends Component{
