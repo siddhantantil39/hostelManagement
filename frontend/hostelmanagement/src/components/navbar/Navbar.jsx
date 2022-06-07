@@ -12,12 +12,12 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <h1 className="navbar-logo">
-        React <i className="fab fa-react"></i>
-      </h1>
-      <div className="menu-icon" onClick={handleClick}>
+      <h4 className="navbar-logo"> HostelManagement
+        {/* HostelManagement <i className="fab fa-react"></i> */}
+      </h4>
+      {/* <div className="menu-icon" onClick={handleClick}>
         <i className={active ? "fas fa-times" : "fas fa-bars"}></i>
-      </div>
+      </div> */}
       <ul className={active ? "nav-menu active" : "nav-menu"}>
         {menuItems.map((item, index) => {
           return (
