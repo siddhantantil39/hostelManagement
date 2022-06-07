@@ -5,12 +5,12 @@ const menuItems = [
       cName: "nav-links"
     },
     {
-      title: "Services",
+      title: "Room Booking",
       url: "#",
       cName: "nav-links"
     },
     {
-      title: "Products",
+      title: "Profile",
       url: "#",
       cName: "nav-links"
     },

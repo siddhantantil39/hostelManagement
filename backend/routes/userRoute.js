@@ -16,7 +16,7 @@ router.route('/').post(async (req, res) => {
     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     await new User({ ...req.body, password: hashPassword }).save();
-    res.status(200).json({
+    res.status(200).json({ 
       status: 'success',
       message: 'user Created successfully',
     });
