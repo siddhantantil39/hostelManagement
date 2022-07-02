@@ -7,6 +7,7 @@ const authRoute = require('./routes/auth');
 const helloroute = require('./utils/sendhello');
 const surveyRoute = require('./routes/surveyRoute');
 const getUserRoute = require('./routes/getUserRoute');
+const getRoomRoute = require('./routes/getRooms');
 
 //middleware
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use("/api/signup/",userRoute);
 app.use("/api/login/",authRoute);
 app.use("/api/survey/",surveyRoute);
 app.use("/api/user/",getUserRoute);
+app.use("/api/room/",getRoomRoute);
 
 //just for testing
 app.use('/api',helloroute );
