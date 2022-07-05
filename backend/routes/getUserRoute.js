@@ -25,4 +25,10 @@ router.route('/').get(async (req, res) =>{
   res.status(200).json({data: userdatatoreturn});
 });
 
+
+router.route('/getalluser/').get(async (req, res) => {
+  const data = await User.find();
+  res.status(200).json({data: data});
+});
+
 module.exports = router;

@@ -7,4 +7,9 @@ router.route('/').get(async (req,res) => {
        res.status(200).json({data:roomdtaa});
 });
 
+router.route('/:id').get(async (req,res) => {
+       const singleroomdata = await Room.findById(req.params.id);
+       res.status(200).json({data: singleroomdata});
+});
+
 module.exports = router;
