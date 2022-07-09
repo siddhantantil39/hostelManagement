@@ -29,7 +29,7 @@ const Navbar = () => {
           );
         })}
       </ul>
-      <Button>SIGN UP</Button>
+      <Button routeto = 'signup'>SIGN UP</Button>
     </nav>
   );
 };

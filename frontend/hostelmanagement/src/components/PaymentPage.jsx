@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import {Redirect} from "react-router-dom";
 
 const loadScript = (src) => {
   return new Promise((resolve) => {
@@ -16,7 +17,8 @@ const loadScript = (src) => {
   });
 };
 
-function PaymentPage() {
+function PaymentPage(props) {
+  console.log(props);
   useEffect(() => {
     loadScript("https://checkout.razorpay.com/v1/checkout.js");
   });
@@ -36,11 +38,19 @@ function PaymentPage() {
       description: "Test Wallet Transaction",
       image: "http://localhost:1337/logo.png",
       order_id: paymentinfo.data.id,
-      handler: function (response) {
+      handler: async function (response) {
         console.log(response);
+        const url = "http://localhost:8080/api/paycom/";
+        const data = {
+          usn:props.usn,
+          transactionid : response.razorpay_payment_id,
+          roomid : props.roomid
+        }
+        await axios.post(url,data);
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature);
+        Window.location.href='/profile';
       },
       prefill: {
         name: "Anirudh Jwala",
@@ -54,9 +64,7 @@ function PaymentPage() {
   };
 
   return (
-    <div>
-      <button id="rzp-button1" onClick={initiatepay}>Pay</button>
-    </div>
+      <button id="rzp-button1" onClick={initiatepay} className='btn-book' disabled={props.isdisable}>Pay</button>
   );
 }
 
