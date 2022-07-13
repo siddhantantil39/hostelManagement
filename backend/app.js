@@ -23,7 +23,6 @@ app.use('/api/room/', getRoomRoute);
 app.use('/api/getOrderId/', getOrderId);
 app.use('/api/paycom/', PaymentComplete);
 //just for testing
-app.use('/api', helloroute);
 
 //(req, res) => {
 //  res.status(200).json({success:true,message:"hello worls",data:req.body});
