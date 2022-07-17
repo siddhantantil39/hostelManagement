@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import {Redirect} from "react-router-dom";
 
 const loadScript = (src) => {
   return new Promise((resolve) => {
@@ -40,8 +39,10 @@ function PaymentPage(props) {
       order_id: paymentinfo.data.id,
       handler: async function (response) {
         console.log(response);
+        const uid = localStorage.getItem("uid");
         const url = "http://localhost:8080/api/paycom/";
         const data = {
+          uid:uid,
           usn:props.usn,
           transactionid : response.razorpay_payment_id,
           roomid : props.roomid

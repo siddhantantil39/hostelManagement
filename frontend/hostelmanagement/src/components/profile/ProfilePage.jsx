@@ -1,57 +1,82 @@
-
-import React,{useState} from 'react'
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Testpaymentpage from "../Testpaymentpage";
 import Navbar from "../navbar/Navbar";
-let profiledata;
-let roomdata;
 function ProfilePage() {
-    const [loaded,setloaded] = useState(null);
-    const loadProfile = async (e) => {
-        const token = localStorage.getItem('token');
+  const [profiledata, steprofiledata] = useState(null);
+  const [roomdata, steroomdata] = useState(null);
+  useEffect(() => {
+    if (!profiledata && !roomdata) {
+      async function getdatas() {
+        const token = localStorage.getItem("token");
         console.log(token);
-        const url1 = "http://localhost:8080/api/user/";
-        const res = await axios.get(url1,{ headers: {"Authorization" : `Bearer ${token}`} });
-        profiledata = res.data.data
-        console.log(res);
-        const url = `http://localhost:8080/api/room/${res.data.data.roomid}/`;
-        const roomsdata = await axios.get(url);
-        console.log(roomsdata);
-        roomdata = roomsdata.data.data;
-        setloaded(1);
+        let res;
+        if (token && token.length > 10) {
+          const url1 = "http://localhost:8080/api/user/";
+          res = await axios.get(url1, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          steprofiledata(res.data.data);
+          console.log(res);
+        }
+        if (res.data.data.roomid) {
+          console.log(res.data.data.roomid);
+          const url = `http://localhost:8080/api/room/${res.data.data.roomid}/`;
+          const roomsdata = await axios.get(url);
+          console.log(roomsdata);
+          steroomdata(roomsdata.data.data);
+        }
+      }
+      getdatas();
     }
-
-    const logoutuser = (e) =>{
-        e.preventDefault();
-        window.localStorage.removeItem("token");
-        window.location.replace('http://localhost:3000/signup')
-    }
+  });
+  const logoutuser = (e) => {
+    e.preventDefault();
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("uid");
+    window.location.replace("http://localhost:3000/signup");
+  };
 
   return (
-       <div>
-           <Navbar/>
-           <div>
-         <button onClick={loadProfile} className="norm-btn">Show Profile</button>
-           </div>
-           {loaded && <div className="profilecard">
-           <div className="roomcardview">First Name => {profiledata.firstName} <button className="logout" onClick={logoutuser}>Logout</button></div>
-               <div className="roomcardview">Last Name => {profiledata.lastName}</div>
-               <div className="roomcardview">Email => {profiledata.email}</div>
-               <div className="roomcardview">USN => {profiledata.usn}</div>
-               <div className="roomcardview">Branch => {profiledata.branch}</div>
-               <div className="roomcardview">Year => {profiledata.year}</div>
-               <div className="roomcardview">Transaction Id => {profiledata.transactionid}</div>
-               <div className="roomcardview">Amount Paid => Rs.1.00</div>
-               <div className="roomcardview">Registered Room Details
-               <div>
-                   <Testpaymentpage room = {roomdata} usn = {profiledata.usn}/>
-               </div>
-               </div>
-
-
-           </div>}
-       </div>
-  )
+    <div>
+      <Navbar />
+      <div className="profilecard">
+        <div className="roomcardview">
+          First Name :: {profiledata ? profiledata.firstName : ""}{" "}
+          <button className="logout" onClick={logoutuser}>
+            Logout
+          </button>
+        </div>
+        <div className="roomcardview">
+          Last Name :: {profiledata ? profiledata.lastName : ""}
+        </div>
+        <div className="roomcardview">
+          Email :: {profiledata ? profiledata.email : ""}
+        </div>
+        <div className="roomcardview">
+          USN :: {profiledata ? profiledata.usn : ""}
+        </div>
+        <div className="roomcardview">
+          Branch :: {profiledata ? profiledata.branch : ""}
+        </div>
+        <div className="roomcardview">
+          Year :: {profiledata ? profiledata.year : ""}
+        </div>
+        <div className="roomcardview">
+          Transaction Id :: {profiledata ? profiledata.transactionid : ""}
+        </div>
+        <div className="roomcardview">Amount Paid :: Rs.1.00</div>
+        <div className="roomcardview">
+          Registered Room Details
+          <div>
+            {roomdata && (
+              <Testpaymentpage room={roomdata} usn={profiledata.usn} />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default ProfilePage;

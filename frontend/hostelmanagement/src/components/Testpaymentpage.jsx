@@ -17,7 +17,7 @@ function Testpaymentpage(props) {
       <div className='roomcardview'> Room id : {props.room._id}</div>
       <div className='roomcardview'> Room Type : {props.room.roomType}</div>
       <div className='roomcardview'> StudentUSN1 : {props.room.studentsUSN[0]}</div>
-        {props.room.studentsUSN.length == 2 && <div className='roomcardview'> StudentUSN2 : {props.room.studentsUSN[1]}</div>}
+        {props.room.studentsUSN.length === 2 && <div className='roomcardview'> StudentUSN2 : {props.room.studentsUSN[1]}</div>}
       <div className='roomcardview'> Block Name : {props.room.blockName}</div>
       <div className='roomcardview'> Floor No : {props.room.floorNo}</div>
         <div className="roomcardview">

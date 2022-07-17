@@ -6,7 +6,8 @@ const router = express.Router();
 
 router.route('/').post(async (req,res) =>{
     console.log(req.body);
-    await  User.updateOne({usn:req.body.usn.toUpperCase()},{transactionid : req.body.transactionid,roomid:req.body.roomid});
+    const uid = req.body.uid;
+    await  User.findByIdAndUpdate(uid,{transactionid : req.body.transactionid,roomid:req.body.roomid});
     Room.findById(req.body.roomid).then((doc) => {
         console.log(doc);
         doc.studentsUSN.push(req.body.usn);
