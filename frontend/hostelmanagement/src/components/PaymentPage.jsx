@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import Button from "@mui/material/Button";
 
 const loadScript = (src) => {
   return new Promise((resolve) => {
@@ -42,16 +43,16 @@ function PaymentPage(props) {
         const uid = localStorage.getItem("uid");
         const url = "http://localhost:8080/api/paycom/";
         const data = {
-          uid:uid,
-          usn:props.usn,
-          transactionid : response.razorpay_payment_id,
-          roomid : props.roomid
-        }
-        await axios.post(url,data);
+          uid: uid,
+          usn: props.usn,
+          transactionid: response.razorpay_payment_id,
+          roomid: props.roomid,
+        };
+        await axios.post(url, data);
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature);
-        Window.location.href='/profile';
+        Window.location.href = "/profile";
       },
       prefill: {
         name: "Anirudh Jwala",
@@ -65,12 +66,21 @@ function PaymentPage(props) {
   };
 
   return (
-      <button id="rzp-button1" onClick={initiatepay} className='btn-book' disabled={props.isdisable}>Pay</button>
+    <Button
+      variant="contained"
+      color="primary"
+      fullWidth
+      onClick={initiatepay}
+      disabled={props.isdisable}
+    >
+      Pay
+    </Button>
   );
 }
 
 export default PaymentPage;
 
+//<button id="rzp-button1"  className='btn-book' disabled={props.isdisable}>Pay</button>
 // const loadScript = (src) => {
 //     return new Promise((resolve) => {
 //       const script = document.createElement("script");
