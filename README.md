@@ -10,6 +10,7 @@ Step 1: clone this repository on you local machine
         move to backend directory: cd hostelManagement/backend/
         install dependencies: npm install
         run server: npm run start
+        
 step 2: run the flask server
         Install the required dependencies from pip: flask, flask_cors, pymongo, pandas, numpy, sklearn, dnsfinder.
         cd hostelmanagement/recommendation
