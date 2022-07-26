@@ -11,8 +11,12 @@ Step 1: clone this repository on you local machine
         install dependencies: npm install
         run server: npm run start
 step 2: run the flask server
-details by Antil
-
+        Install the required dependencies from pip: flask, flask_cors, pymongo, pandas, numpy, sklearn, dnsfinder.
+        cd hostelmanagement/recommendation
+        On the terminal, run: set FLASK_APP = app
+                              flask run
+        The Flask server gets turned on localhost:5000
+       
 
 Step 3: run the frontend:
         move to frontend/hostelmanagement/: cd hostelManagement/frontend/hostelmanagement
